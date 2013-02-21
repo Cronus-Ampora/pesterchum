@@ -9,17 +9,11 @@ import zipfile
 import os, sys, shutil
 
 USER_TYPE = "user"
-                  # user - for normal people
-                  # beta - for the original beta testers
-                  # dev  - used to be for git users, now it's anyone with the 3.41 beta
-                  # edge - new git stuff. bleeding edge, do not try at home (kiooeht version)
+                 
+INSTALL_TYPE = "exe/dmg"
+                 
 
-INSTALL_TYPE = "installer"
-                  # installer - Windows/Mac installer     (exe/dmg)
-                  # zip       - Windows zip               (zip)
-                  # source    - Win/Linux/Mac source code (zip/tar)
-
-OS_TYPE = sys.platform # win32, linux, darwin
+OS_TYPE = linux 
 if OS_TYPE.startswith("linux"):
     OS_TYPE = "linux"
 elif OS_TYPE == "darwin":
@@ -27,10 +21,8 @@ elif OS_TYPE == "darwin":
 
 _pcMajor = "3.41"
 _pcMinor = "3"
-_pcStatus = "" # A  = alpha
-                # B  = beta
-                # RC = release candidate
-                # None = public release
+_pcStatus = "" 
+
 _pcRevision = ""
 _pcVersion = ""
 
@@ -65,7 +57,6 @@ def lexVersion(short=False):
 
     return "%s.%s %s %s%s" % (_pcMajor, _pcMinor, stype, _pcRevision, utype);
 
-# Naughty I know, but it lets me grab it from the bash script.
 if __name__ == "__main__":
     print lexVersion()
 
@@ -137,7 +128,7 @@ def updateExtract(url, extension):
             extension = ".zip"
         else:
             try:
-                from libs import magic # :O I'M IMPORTING /MAGIC/!! HOLY SHIT!
+                from libs import magic 
                 mime = magic.from_file(fn, mime=True)
                 if mime == 'application/octet-stream':
                     extension = ".exe"
